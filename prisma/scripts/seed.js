@@ -19,11 +19,24 @@ const makeHabitInput = (studyId) => ({
   studyId,
 });
 
-const makeHabitRecordInput = (habitName, studyId, habitId) => ({
+function getDateRange(start, end) {
+  const dates = [];
+  const current = new Date(start);
+  const last = new Date(end);
+  while (current <= last) {
+    dates.push(new Date(current));
+    current.setDate(current.getDate() + 1);
+  }
+  return dates;
+}
+
+const dateRange = getDateRange('2026-08-30', '2026-09-06');
+
+const makeHabitRecordInput = (habitName, studyId, habitId, createdAt) => ({
   habitName,
   studyId,
   habitId,
-  createdAt: faker.date.between({ from: '2026-08-30', to: '2026-09-06' })
+  createdAt,
 });
 
 const makeEmojiInput = (studyId) => ({
@@ -68,12 +81,17 @@ async function seed(prisma) {
   });
 
   const habitRecordData = [];
-  for (const habit of habits) {
-    const count = faker.number.int({ min: 0, max: 7 });
-    for (let index = 0; index < count; index += 1) {
-      habitRecordData.push(makeHabitRecordInput(habit.name, habit.studyId, habit.id));
-    }
+for (const habit of habits) {
+  const count = faker.number.int({ min: 0, max: 7 });
+  const shuffledDates = faker.helpers.shuffle([...dateRange]);
+  const selectedDates = shuffledDates.slice(0, count);
+
+  for (const date of selectedDates) {
+    habitRecordData.push(
+      makeHabitRecordInput(habit.name, habit.studyId, habit.id, date)
+    );
   }
+}
 
   await prisma.habitRecord.createMany({ data: habitRecordData });
 
