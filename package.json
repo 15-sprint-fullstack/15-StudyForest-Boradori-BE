@@ -1,0 +1,55 @@
+{
+  "name": "15-studyforest-boradori-be",
+  "version": "0.0.0",
+  "description": "코드잇 스프린트 풀스택 15기 초급 프로젝트 - 공부의 숲 백엔드",
+  "homepage": "https://github.com/15-sprint-fullstack/15-StudyForest-Boradori-BE#readme",
+  "bugs": {
+    "url": "https://github.com/15-sprint-fullstack/15-StudyForest-Boradori-BE/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/15-sprint-fullstack/15-StudyForest-Boradori-BE.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "./src/server.js",
+  "imports": {
+    "#generated/*": "./generated/*",
+    "#config": "./src/config/config.js",
+    "#db/*": "./src/db/*",
+    "#constants": "./src/constants/index.js",
+    "#errors": "./src/errors/index.js",
+    "#middlewares": "./src/middlewares/index.js",
+    "#repositories": "./src/repositories/index.js",
+    "#utils": "./src/utils/index.js"
+  },
+  "scripts": {
+    "dev": "nodemon --env-file=./env/.env.development ./src/server.js",
+    "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
+    "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
+    "prisma:studio": "dotenv -e ./env/.env.development -- npx prisma studio",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=26 <27",
+    "npm": ">=11"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "express": "^5.2.1",
+    "pg": "^8.23.0",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "dotenv-cli": "^11.0.0",
+    "eslint": "^10.9.1",
+    "eslint-plugin-import-x": "^4.17.1",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.9.6",
+    "prisma": "^7.9.1"
+  }
+}
