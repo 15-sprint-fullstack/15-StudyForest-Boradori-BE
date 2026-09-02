@@ -64,7 +64,7 @@ async function seed(prisma) {
     }
   }
 
-    await prisma.habit.createMany({ data: habitData });
+  await prisma.habit.createMany({ data: habitData });
 
   const emojiData = [];
   for (const study of studys) {
@@ -74,29 +74,29 @@ async function seed(prisma) {
     }
   }
 
-  await prisma.emoji.createMany({ data: emojiData, skipDuplicates: true,});
+  await prisma.emoji.createMany({ data: emojiData, skipDuplicates: true });
 
   const habits = await prisma.habit.findMany({
     select: { name: true, id: true, studyId: true },
   });
 
   const habitRecordData = [];
-for (const habit of habits) {
-  const count = faker.number.int({ min: 0, max: 7 });
-  const shuffledDates = faker.helpers.shuffle([...dateRange]);
-  const selectedDates = shuffledDates.slice(0, count);
+  for (const habit of habits) {
+    const count = faker.number.int({ min: 0, max: 7 });
+    const shuffledDates = faker.helpers.shuffle([...dateRange]);
+    const selectedDates = shuffledDates.slice(0, count);
 
-  for (const date of selectedDates) {
-    habitRecordData.push(
-      makeHabitRecordInput(habit.name, habit.studyId, habit.id, date)
-    );
+    for (const date of selectedDates) {
+      habitRecordData.push(
+        makeHabitRecordInput(habit.name, habit.studyId, habit.id, date),
+      );
+    }
   }
-}
 
   await prisma.habitRecord.createMany({ data: habitRecordData });
 
   return {
-    stydyCount: studyData.length,
+    studyCount: studyData.length,
     habitCount: habitData.length,
     habitRecordCount: habitRecordData.length,
     emojiCount: emojiData.length,
@@ -113,7 +113,7 @@ async function main(prisma) {
   await resetMarketData(prisma);
   const result = await seed(prisma);
 
-  console.log(`${result.stydyCount}개의 Study가 생성되었습니다.`);
+  console.log(`${result.studyCount}개의 Study가 생성되었습니다.`);
   console.log(`${result.habitCount}개의 Habit이 생성되었습니다.`);
   console.log(`${result.habitRecordCount}개의 Habit Record가 생성되었습니다.`);
   console.log(`${result.emojiCount}개의 Emoji가 생성되었습니다.`);
