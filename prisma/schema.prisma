@@ -6,3 +6,54 @@ generator client {
 datasource db {
     provider = "postgresql"
 }
+
+model Study {
+    id          String   @id @default(uuid()) // 랜덤한 문자열로 받기
+    nickname    String
+    name        String
+    description String
+    background  String?
+    password    String
+    point       Int      @default(0)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    habits  Habit[]
+    emojis  Emoji[]
+    records HabitRecord[]
+}
+
+model Habit {
+    id          String   @id @default(uuid())
+    name        String
+    description String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    study   Study  @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId String
+
+    records HabitRecord[]
+}
+
+model HabitRecord {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    habitName String
+    habit     Habit?   @relation(fields: [habitId], references: [id], onDelete: SetNull)
+    habitId   String?
+    study     Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId   String
+}
+
+model Emoji {
+    id        String   @id @default(uuid())
+    emojiType String
+    count     Int      @default(0)
+    createdAt DateTime @default(now())
+
+    study   Study  @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId String
+
+    @@unique([studyId, emojiType])
+}
