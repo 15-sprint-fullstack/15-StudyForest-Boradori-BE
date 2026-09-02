@@ -29,8 +29,10 @@
     "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
     "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
     "prisma:studio": "dotenv -e ./env/.env.development -- npx prisma studio",
+    "seed": "node --env-file=./env/.env.development ./prisma/scripts/seed.js --allow-reset=study_forest_boradori_db",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "engines": {
     "node": ">=26 <27",
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@faker-js/faker": "^10.6.0",
     "dotenv-cli": "^11.0.0",
     "eslint": "^10.9.1",
     "eslint-plugin-import-x": "^4.17.1",
