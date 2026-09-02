@@ -26,7 +26,6 @@ model Study {
 model Habit {
     id          String   @id @default(uuid())
     name        String
-    description String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 
@@ -38,7 +37,7 @@ model Habit {
 
 model HabitRecord {
     id        String   @id @default(uuid())
-    createdAt DateTime @default(now())
+    createdAt DateTime
     habitName String
     habit     Habit?   @relation(fields: [habitId], references: [id], onDelete: SetNull)
     habitId   String?
