@@ -21,6 +21,7 @@
     "#constants": "./src/constants/index.js",
     "#errors": "./src/errors/index.js",
     "#middlewares": "./src/middlewares/index.js",
+    "#schemas": "./src/schemas/index.js",
     "#repositories": "./src/repositories/index.js",
     "#utils": "./src/utils/index.js"
   },
