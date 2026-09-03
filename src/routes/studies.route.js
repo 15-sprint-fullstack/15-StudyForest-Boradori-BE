@@ -20,9 +20,10 @@ studiesRouter.get('/', async (req, res) => {
 */
 
 //스터디 외에 습관, 습관기록, 이모지 라우팅
-studiesRouter.use(['/habit', '/:studiesId/habit'], habitRouter);
+//스터디의 API들 보다 밑에 있어야 정상작동
+studiesRouter.use(['/:studiesId/habit'], habitRouter);
 studiesRouter.use(
-  ['/habit-record', '/:studiesId/habit-record'],
+  ['/:studiesId/habit-record'],
   habitRecordsRouter,
 );
-studiesRouter.use(['/emoji', '/:studiesId/emoji'], emojiRouter);
+studiesRouter.use(['/:studiesId/emoji'], emojiRouter);

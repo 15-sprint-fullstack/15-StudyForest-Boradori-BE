@@ -6,14 +6,8 @@ export const emojiRouter = express.Router({ mergeParams: true });
 //아래는 예시코드 입니다.
 emojiRouter.get('/', async (req, res) => {
   const { studiesId } = req.params;
-  if (studiesId) {
-    res.status(200).json({
+res.status(200).json({
       message: '이모지의 studiesId 체크입니다.',
       studiesId,
     });
-  } else {
-    res.status(200).json({
-      message: '이모지입니다.',
-    });
-  }
 });
