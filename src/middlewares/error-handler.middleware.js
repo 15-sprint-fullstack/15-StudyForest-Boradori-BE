@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { HttpException } from '../exceptions/http-exception.js';
 import { HTTP_STATUS } from '#constants';
 import { Prisma } from '#generated/prisma/client.ts';
@@ -52,6 +53,18 @@ export const errorHandler = (error, req, res, next) => {
       default:
         break;
     }
+  }
+
+  // req body 형식 에러
+  if (error instanceof z.ZodError) {
+    return res.status(HTTP_STATUS.BAD_REQUEST).json({
+      success: false,
+      message: '요청 데이터가 올바르지 않습니다',
+      errors: error.issues.map((issue) => ({
+        field: issue.path.join('.'),
+        message: issue.message,
+      })),
+    });
   }
 
   const result = {
