@@ -1,7 +1,7 @@
 import express from 'express';
-import { createStudySchema } from '../schemas/study.schema.js';
 import { studiesRouter } from './studies.route.js';
 import { prisma } from '#db/prisma.js';
+import { createStudySchema } from '#schemas';
 
 export const router = express.Router();
 
