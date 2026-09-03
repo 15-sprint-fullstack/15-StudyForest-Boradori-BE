@@ -1,6 +1,6 @@
 import express from 'express';
-import { prisma } from '#db/prisma.js';
 import { studiesRouter } from './studies.route.js';
+import { prisma } from '#db/prisma.js';
 
 export const router = express.Router();
 
