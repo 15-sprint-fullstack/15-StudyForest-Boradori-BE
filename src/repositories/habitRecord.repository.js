@@ -1,4 +1,5 @@
 import { prisma } from '#db/prisma.js';
+import { BadRequestException } from '../exceptions/bad-request-exception.js';
 
 async function createHabitRecord(studyId, habitId) {
   const now = new Date();
@@ -8,7 +9,7 @@ async function createHabitRecord(studyId, habitId) {
   });
 
   if (!habit) {
-    throw new Error('존재하지 않는 습관입니다.');
+    throw new BadRequestException('존재하지 않는 습관입니다.');
   }
 
   return prisma.habitRecord.create({
@@ -33,7 +34,7 @@ function findList(studyId, startDate, endDate) {
   const parsedEndDate = new Date(endDate);
 
   if (isNaN(parsedStartDate.getTime()) || isNaN(parsedEndDate.getTime())) {
-    throw new Error('유효하지 않은 날짜입니다.');
+    throw new BadRequestException('유효하지 않은 날짜입니다.');
   }
 
   console.log('시작날짜:', parsedStartDate, '끝날짜:', parsedEndDate);
@@ -59,7 +60,7 @@ function findRecord(habitId, startDate, endDate) {
   const parsedEndDate = new Date(endDate);
 
   if (isNaN(parsedStartDate.getTime()) || isNaN(parsedEndDate.getTime())) {
-    throw new Error('유효하지 않은 날짜입니다.');
+    throw new BadRequestException('유효하지 않은 날짜입니다.');
   }
 
   console.log('시작날짜:', parsedStartDate, '끝날짜:', parsedEndDate);

@@ -1,7 +1,7 @@
 import express from 'express';
 import { habitRecordRepository } from '#repositories';
 import { NotFoundException } from '../exceptions/not-found-exception.js';
-import { validateHabitRecord } from '../middlewares/vaildateHabitRecord.middleware.js';
+import { validateHabitRecord } from '../middlewares/validates/vaildateHabitRecord.middleware.js';
 
 export const habitRecordsRouter = express.Router({ mergeParams: true });
 

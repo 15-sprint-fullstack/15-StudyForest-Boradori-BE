@@ -1,11 +1,11 @@
-import { BadRequestException } from '../exceptions/bad-request-exception.js';
+import { BadRequestException } from '../../exceptions/bad-request-exception.js';
 
 export const validateHabitRecord = (req, res, next) => {
   try {
     const { method } = req;
     const { studyId, habitId, habitRecordId } = req.params;
     const { startDate, endDate } = req.query;
-    console.log('검증중인 파람스',req.params)
+    console.log('검증중인 파람스', req.params);
 
     switch (method) {
       case 'GET': {
