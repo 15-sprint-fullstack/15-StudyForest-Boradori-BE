@@ -9,6 +9,7 @@ habitRecordsRouter.get('/', validateHabitRecord, async (req, res, next) => {
   try {
     const { studyId } = req.params;
     const { startDate, endDate } = req.query;
+    console.log('요청받은날짜',startDate, endDate);
     const result = await habitRecordRepository.findList(
       studyId,
       startDate,

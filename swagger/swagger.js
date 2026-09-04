@@ -37,7 +37,7 @@ const options = {
             updatedAt: { type: 'string', format: 'date-time' },
           },
           required: ['id', 'nickname', 'name', 'description', 'point'],
-          // password는 보안상 응답 스키마에서 제외 (아래 설명 참고)
+          // password는 보안상 응답 스키마에서 제외
         },
         Habit: {
           type: 'object',

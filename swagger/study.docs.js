@@ -5,7 +5,7 @@
  *   get:
  *     tags:
  *       - Study
- *     summary: 습관 조회
+ *     summary: 스터디 조회
  *     parameters:
  *       - in: path
  *         name: test
