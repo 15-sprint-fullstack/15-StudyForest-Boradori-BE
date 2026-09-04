@@ -1,12 +1,12 @@
 import { prisma } from '#db/prisma.js';
 
-function findHabitsByStudyId(studyId) {
+function findByStudyId(studyId) {
   return prisma.habit.findMany({
     where: { studyId },
   });
 }
 
-function createHabit(studyId, data) {
+function create(studyId, data) {
   return prisma.habit.create({
     data: {
       ...data,
@@ -15,22 +15,22 @@ function createHabit(studyId, data) {
   });
 }
 
-function updateHabit(habitId, data) {
+function update(habitId, data) {
   return prisma.habit.update({
     where: { id: habitId },
     data,
   });
 }
 
-function deleteHabit(habitId) {
+function remove(habitId) {
   return prisma.habit.delete({
     where: { id: habitId },
   });
 }
 
 export const habitRepository = {
-  findHabitsByStudyId,
-  createHabit,
-  updateHabit,
-  deleteHabit,
+  findByStudyId,
+  create,
+  update,
+  remove,
 };
