@@ -1,9 +1,9 @@
 import express from 'express';
+import { prisma } from '#db/prisma.js';
+import { createStudySchema } from '#schemas';
 import { emojiRouter } from './emojis.route.js';
 import { habitRecordsRouter } from './habitRecords.route.js';
 import { habitRouter } from './habits.route.js';
-import { prisma } from '#db/prisma.js';
-import { createStudySchema } from '#schemas';
 
 export const studiesRouter = express.Router();
 
