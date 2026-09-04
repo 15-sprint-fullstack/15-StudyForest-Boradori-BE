@@ -1,12 +1,10 @@
-//스터디 API문서
-
-//습관 API문서
-
 //습관기록 API문서
 /**
  * @swagger
  * /studies/{studyId}/habit-record:
  *   get:
+ *     tags:
+ *       - HabitRecord
  *     summary: 습관 기록 리스트 조회
  *     parameters:
  *       - in: path
@@ -30,8 +28,10 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit-record/{habitId}:
+ * /studies/habit-record/{habitId}:
  *   get:
+ *     tags:
+ *       - HabitRecord
  *     summary: 습관 기록 조회
  *     parameters:
  *       - in: path
@@ -57,6 +57,8 @@
  * @swagger
  * /studies/{studyId}/habit-record/{habitId}:
  *   post:
+ *     tags:
+ *       - HabitRecord
  *     summary: 습관 기록 생성
  *     parameters:
  *       - in: path
@@ -77,15 +79,12 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit-record/{habitRecordId}:
+ * /studies/habit-record/{habitRecordId}:
  *   delete:
+ *     tags:
+ *       - HabitRecord
  *     summary: 습관 기록 삭제
  *     parameters:
- *       - in: path
- *         name: studyId
- *         required: true
- *         schema:
- *           type: string
  *       - in: path
  *         name: habitRecordId
  *         required: true

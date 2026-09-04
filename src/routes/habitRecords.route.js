@@ -7,10 +7,10 @@ export const habitRecordsRouter = express.Router({ mergeParams: true });
 
 habitRecordsRouter.get('/', validateHabitRecord, async (req, res, next) => {
   try {
-    const { studiesId } = req.params;
+    const { studyId } = req.params;
     const { startDate, endDate } = req.query;
     const result = await habitRecordRepository.findList(
-      studiesId,
+      studyId,
       startDate,
       endDate,
     );
@@ -18,7 +18,7 @@ habitRecordsRouter.get('/', validateHabitRecord, async (req, res, next) => {
       success: true,
       data: result,
       count: result.length,
-      studiesId,
+      studyId,
       message: '습관기록의 리스트 조회 성공',
     });
   } catch (error) {
@@ -55,9 +55,9 @@ habitRecordsRouter.post(
   validateHabitRecord,
   async (req, res, next) => {
     try {
-      const { studiesId, habitId } = req.params;
+      const { studyId, habitId } = req.params;
       const result = await habitRecordRepository.createHabitRecord(
-        studiesId,
+        studyId,
         habitId,
       );
       res.status(201).json({

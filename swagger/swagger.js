@@ -5,9 +5,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: '초급 팀 프로젝트 API',
+      title: '[보라도리] 초급 팀 프로젝트 API',
       version: '1.0.0',
-      description: '초급 팀 프로젝트 관련 API 문서입니다.',
+      description: '팀 보라도리의 초급 팀 프로젝트 관련 API 문서입니다.',
     },
     servers: [
       {
