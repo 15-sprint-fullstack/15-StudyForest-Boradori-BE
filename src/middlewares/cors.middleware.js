@@ -1,7 +1,7 @@
 import { isDevelopment } from '#config';
 
 // 프엔에서 사용될 url 들 집어넣으면 됩니다.
-const developmentWhitelist = [];
+const developmentWhitelist = ['http://localhost:5001'];
 const productionWhitelist = [];
 export const cors = (req, res, next) => {
   const whitelist = isDevelopment ? developmentWhitelist : productionWhitelist;

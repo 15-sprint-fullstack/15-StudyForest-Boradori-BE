@@ -27,6 +27,7 @@ function findById(habitRecordId) {
   });
 }
 
+//습관기록표에서 습관리스트들(첫 열) 찾기
 function findList(studyId, startDate, endDate) {
   const parsedStartDate = new Date(startDate);
   const parsedEndDate = new Date(endDate);
@@ -52,7 +53,8 @@ function findList(studyId, startDate, endDate) {
   });
 }
 
-function findRecord(studyId, habitId, startDate, endDate) {
+//습관기록표에서 해당 습관의 기록들(행) 찾기
+function findRecord(habitId, startDate, endDate) {
   const parsedStartDate = new Date(startDate);
   const parsedEndDate = new Date(endDate);
 
@@ -64,7 +66,6 @@ function findRecord(studyId, habitId, startDate, endDate) {
 
   return prisma.habitRecord.findMany({
     where: {
-      studyId,
       habitId,
       createdAt: {
         gte: parsedStartDate,
