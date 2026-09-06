@@ -5,37 +5,10 @@
  *   get:
  *     tags:
  *       - HabitRecord
- *     summary: 습관 기록 리스트 조회
- *     parameters:
- *       - in: path
- *         name: studyId
- *         required: true
- *         schema:
- *           type: string
- *       - in: query
- *         name: startDate
- *         schema:
- *           type: string
- *       - in: query
- *         name: endDate
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: 조회 성공
- *
- */
-
-/**
- * @swagger
- * /studies/habit-record/{habitId}:
- *   get:
- *     tags:
- *       - HabitRecord
  *     summary: 습관 기록 조회
  *     parameters:
  *       - in: path
- *         name: habitId
+ *         name: studyId
  *         required: true
  *         schema:
  *           type: string
