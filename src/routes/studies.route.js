@@ -3,7 +3,7 @@ import { prisma } from '#db/prisma.js';
 import { createStudySchema } from '#schemas';
 import { emojisRouter } from './emojis.route.js';
 import { habitRecordsRouter } from './habitRecords.route.js';
-import { habitsRouter } from './habits.route.js';
+import { habitRouter } from './habits.route.js';
 
 export const studiesRouter = express.Router();
 
@@ -38,7 +38,7 @@ studiesRouter.get('/', async (req, res) => {
 
 //스터디 외에 습관, 습관기록, 이모지 라우팅
 //스터디의 API들 보다 밑에 있어야 정상작동
-studiesRouter.use(['/:studyId/habit'], habitsRouter);
+studiesRouter.use(['/:studyId/habit'], habitRouter);
 studiesRouter.use(
   ['/:studyId/habit-record', '/habit-record'],
   habitRecordsRouter,

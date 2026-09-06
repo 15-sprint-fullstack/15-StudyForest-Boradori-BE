@@ -86,4 +86,4 @@ export const validateHabit = async (req, _res, next) => {
 // checkHabitId는 사실 거의 죽은 코드라고 합니다. (study 검증 미들웨어의 !studyId 체크도 마찬가지.)
 // URL 경로 파라미터에 studyId나 habitId가 비어있으면 해당 라우트에 매칭 자체가 되지 않기 때문입니다.
 // 방어코드로 남겨놓아도 오류가 나지는 않는 부분이라 지금은 일단 남겨놓았습니다.
-// 불필요하다는 의견에 따라 삭제하고자 합니다. 
+// 불필요하다는 의견에 따라 삭제하고자 합니다.
