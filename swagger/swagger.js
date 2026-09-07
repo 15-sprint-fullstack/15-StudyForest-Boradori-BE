@@ -1,5 +1,6 @@
 // swagger.js
 import swaggerJSDoc from 'swagger-jsdoc';
+import { config, isProduction } from '#config';
 
 const options = {
   definition: {
@@ -11,8 +12,10 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:5001',
-        description: '로컬 개발 서버',
+        url: isProduction
+          ? process.env.RENDER_EXTERNAL_URL
+          : `http://localhost:${config.PORT}`,
+        description: isProduction ? 'Production server' : 'Local server',
       },
     ],
     components: {
