@@ -4,5 +4,5 @@
     "module": "nodenext",
     "moduleResolution": "nodenext"
   },
-  "include": ["./generated/", "./scripts/", "./src/"]
+  "include": ["./generated/", "./scripts/", "./src/", "swagger/swagger.js"]
 }
