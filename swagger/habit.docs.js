@@ -20,11 +20,74 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit/{habitId}:
+ * /studies/{studyId}/habit:
  *   post:
  *     tags:
- *       - HabitRecord
- *     summary: 습관 기록 생성
+ *       - Habit
+ *     summary: 습관 생성
+ *     parameters:
+ *       - in: path
+ *         name: studyId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: 6시에 미라클 모닝
+ *     responses:
+ *       201:
+ *         description: 생성 성공
+ *
+ */
+
+/**
+ * @swagger
+ * /studies/{studyId}/habit/{habitId}:
+ *   patch:
+ *     tags:
+ *       - Habit
+ *     summary: 습관 변경
+ *     parameters:
+ *       - in: path
+ *         name: studyId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: habitId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: 고양이 밥주기
+ *     responses:
+ *       200:
+ *         description: 변경 성공
+ *
+ */
+
+/**
+ * @swagger
+ * /studies/{studyId}/habit/{habitId}:
+ *   delete:
+ *     tags:
+ *       - Habit
+ *     summary: 습관 삭제
  *     parameters:
  *       - in: path
  *         name: studyId
@@ -38,6 +101,6 @@
  *           type: string
  *     responses:
  *       201:
- *         description: 생성 성공
+ *         description: 삭제 성공
  *
  */

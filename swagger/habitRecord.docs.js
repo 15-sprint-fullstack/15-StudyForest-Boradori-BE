@@ -16,10 +16,12 @@
  *         name: startDate
  *         schema:
  *           type: string
+ *           example: 2026-08-30
  *       - in: query
  *         name: endDate
  *         schema:
  *           type: string
+ *           example: 2026-09-05
  *     responses:
  *       200:
  *         description: 조회 성공
