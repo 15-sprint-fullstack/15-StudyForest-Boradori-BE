@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { HttpException } from '../exceptions/http-exception.js';
 import { HTTP_STATUS } from '#constants';
+import { HttpException } from '../exceptions/http-exception.js';
 import { Prisma } from '#generated/prisma/client.js';
 
 export const errorHandler = (error, req, res, next) => {
