@@ -26,6 +26,7 @@
     "#utils": "./src/utils/index.js"
   },
   "scripts": {
+    "start": "node src/server.js",
     "dev": "nodemon --env-file=./env/.env.development ./src/server.js",
     "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
     "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
