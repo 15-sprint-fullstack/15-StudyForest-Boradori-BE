@@ -37,8 +37,8 @@ export const validateHabitRecord = async (req, res, next) => {
     }
   };
 
-  const checkHabitRecordId = (habitRecordId) => {
-    const target = habitRecordsRepository.findById(habitRecordId);
+  const checkHabitRecordId = async (habitRecordId) => {
+    const target = await habitRecordsRepository.findById(habitRecordId);
     if (!target) {
       throw new NotFoundException('habitRecordId가 존재하지 않습니다.');
     }
@@ -133,17 +133,18 @@ export const validateHabitRecord = async (req, res, next) => {
         break;
 
       case 'DELETE':
-        isValueExist(habitRecordId);
+        isValueExist(habitRecordId, 'habitRecordId는 필수입니다.');
         checkHabitRecordId(habitRecordId);
         break;
     }
 
-    next();
+    
   } catch (error) {
     console.log(error);
     res.status(error.statusCode).json({
       success: false,
       message: error.message,
     });
+    next(error);
   }
 };
