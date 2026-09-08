@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { assertSafeSeedTarget, resetMarketData } from './seed-safety.js';
-import { PrismaClient } from '#generated/prisma/client.ts';
+import { PrismaClient } from '#generated/prisma/client.js';
 
 const NUM_STUDY_TO_CREATE = 30;
 

@@ -26,6 +26,7 @@
     "#utils": "./src/utils/index.js"
   },
   "scripts": {
+    "start": "node src/server.js",
     "dev": "nodemon --env-file=./env/.env.development ./src/server.js",
     "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
     "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
@@ -42,8 +43,12 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "date-fns": "^4.4.0",
+    "date-fns-tz": "^3.2.0",
     "express": "^5.2.1",
     "pg": "^8.23.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.5.4"
   },
   "devDependencies": {
