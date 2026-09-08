@@ -16,7 +16,7 @@ app.listen(config.PORT, () => {
   console.log(`${config.NODE_ENV} Server running`);
   if (isProduction) {
     console.log(
-      `${config.NODE_ENV} API 문서: ${process.env.RENDER_EXTERNAL_URL}`,
+      `${config.NODE_ENV} API 문서: ${process.env.RENDER_EXTERNAL_URL}/api-docs`,
     );
   } else if (isDevelopment) {
     console.log(`${config.NODE_ENV} API 문서: http://localhost:5001/api-docs`);
