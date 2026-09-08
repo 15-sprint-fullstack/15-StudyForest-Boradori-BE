@@ -44,7 +44,7 @@ function remove(habitRecordId) {
   });
 }
 
-export const habitRecordRepository = {
+export const habitRecordsRepository = {
   createHabitRecord,
   findById,
   findList,

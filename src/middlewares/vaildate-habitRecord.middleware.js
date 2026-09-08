@@ -1,7 +1,7 @@
 import { prisma } from '#db/prisma.js';
-import { habitRecordRepository } from '#repositories';
-import { BadRequestException } from '../../exceptions/bad-request-exception.js';
-import { NotFoundException } from '../../exceptions/not-found-exception.js';
+import { habitRecordsRepository } from '#repositories';
+import { BadRequestException } from '../exceptions/bad-request-exception.js';
+import { NotFoundException } from '../exceptions/not-found-exception.js';
 
 export const validateHabitRecord = async (req, res, next) => {
   const isDate = (dateString) => {
@@ -39,7 +39,7 @@ export const validateHabitRecord = async (req, res, next) => {
   };
 
   const checkHabitRecordId = (habitRecordId) => {
-    const target = habitRecordRepository.findById(habitRecordId);
+    const target = habitRecordsRepository.findById(habitRecordId);
     if (!target) {
       throw new NotFoundException('habitRecordId가 존재하지 않습니다.');
     }
@@ -91,7 +91,7 @@ export const validateHabitRecord = async (req, res, next) => {
         },
       },
     });
-    if(result) {
+    if (result) {
       throw new BadRequestException(
         '습관기록은 하루에 하나만 생성 가능합니다.',
       );

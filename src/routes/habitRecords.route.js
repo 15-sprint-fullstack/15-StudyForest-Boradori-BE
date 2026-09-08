@@ -1,6 +1,6 @@
 import express from 'express';
-import { habitRecordRepository } from '#repositories';
-import { validateHabitRecord } from '../middlewares/validates/vaildateHabitRecord.middleware.js';
+import { validateHabitRecord } from '#middlewares';
+import { habitRecordsRepository } from '#repositories';
 
 export const habitRecordsRouter = express.Router({ mergeParams: true });
 
@@ -11,7 +11,7 @@ habitRecordsRouter.get('/', validateHabitRecord, async (req, res, next) => {
 
     console.log('요청받은날짜', startDate, endDate);
 
-    const result = await habitRecordRepository.findList(
+    const result = await habitRecordsRepository.findList(
       studyId,
       startDate,
       endDate,
@@ -36,7 +36,7 @@ habitRecordsRouter.post(
     try {
       const { studyId, habitId } = req.params;
       const name = req.name;
-      const result = await habitRecordRepository.createHabitRecord(
+      const result = await habitRecordsRepository.createHabitRecord(
         studyId,
         habitId,
         name,
@@ -59,7 +59,7 @@ habitRecordsRouter.delete(
   async (req, res, next) => {
     try {
       const { habitRecordId } = req.params;
-      const deleteTarget = await habitRecordRepository.remove(habitRecordId);
+      const deleteTarget = await habitRecordsRepository.remove(habitRecordId);
 
       res.status(200).json({
         success: true,

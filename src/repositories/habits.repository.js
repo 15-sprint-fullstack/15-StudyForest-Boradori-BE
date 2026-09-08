@@ -28,7 +28,7 @@ function remove(habitId) {
   });
 }
 
-export const habitRepository = {
+export const habitsRepository = {
   findByStudyId,
   create,
   update,
