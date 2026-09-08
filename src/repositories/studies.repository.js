@@ -1,12 +1,44 @@
 import { prisma } from '#db/prisma.js';
 
-function findAll() {
-  return prisma.study.findMany();
+function find(page, limit, sort, sortBy, keyword) {
+  const validSort = sort === 'asc' ? 'asc' : 'desc';
+  const validSortBy = sortBy === 'point' ? 'point' : 'createdAt';
+  return prisma.study.findMany({
+    where: keyword
+      ? {
+          OR: [
+            { name: { contains: keyword, mode: 'insensitive' } },
+            { nickname: { contains: keyword, mode: 'insensitive' } },
+            { description: { contains: keyword, mode: 'insensitive' } },
+          ],
+        }
+      : {},
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: [
+      { [validSortBy]: validSort },
+      { id: 'asc' },
+    ],
+  });
 }
 
 function findById(studyId) {
   return prisma.study.findUnique({
     where: { id: studyId },
+  });
+}
+
+function count(keyword) {
+  return prisma.study.count({
+    where: keyword
+      ? {
+          OR: [
+            { name: { contains: keyword, mode: 'insensitive' } },
+            { description: { contains: keyword, mode: 'insensitive' } },
+            { tags: { hasSome: [keyword] } },
+          ],
+        }
+      : {},
   });
 }
 
@@ -29,9 +61,10 @@ function remove(studyId) {
   });
 }
 
-export const studyRepository = {
-  findAll,
+export const studiesRepository = {
+  find,
   findById,
+  count,
   create,
   update,
   remove,
