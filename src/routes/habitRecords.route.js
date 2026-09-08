@@ -53,6 +53,21 @@ habitRecordsRouter.post(
   },
 );
 
+habitRecordsRouter.patch('/:habitId', validateHabitRecord, async (req, res, next) => {
+  try {
+    const habitId = req.params.habitId;
+    const name = req.body.name;
+    const updatedHabitName = await habitRecordsRepository.updateAllByName(habitId, name);
+    res.status(200).json({
+      success: true,
+      data: updatedHabitName,
+      message: '습관이름 업데이트 완료',
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 habitRecordsRouter.delete(
   '/:habitRecordId',
   validateHabitRecord,

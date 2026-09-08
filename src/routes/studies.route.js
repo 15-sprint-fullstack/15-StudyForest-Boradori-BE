@@ -64,7 +64,7 @@ studiesRouter.post('/', async (req, res, next) => {
 studiesRouter.patch('/:studyId', async (req, res, next) => {
   try {
     const studyId = req.params.studyId;
-    const data = updateStudySchema.parse(req.body);
+    const data = req.body;
     const updatedStudy = await studiesRepository.update(studyId, data);
     res.status(200).json({
       success: true,

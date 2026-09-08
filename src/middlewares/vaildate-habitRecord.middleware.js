@@ -13,9 +13,9 @@ export const validateHabitRecord = async (req, res, next) => {
     }
   };
 
-  const isIdExist = (Id) => {
-    if (!Id) {
-      throw new BadRequestException('studyId 또는 habitId는 필수 입니다.');
+  const isValueExist = (value, errorMessage) => {
+    if (!value) {
+      throw new BadRequestException(errorMessage);
     }
   };
 
@@ -35,11 +35,10 @@ export const validateHabitRecord = async (req, res, next) => {
     if (!habit) {
       throw new NotFoundException('habitId가 존재하지 않습니다.');
     }
-    return (req.name = habit.name);
   };
 
-  const checkHabitRecordId = (habitRecordId) => {
-    const target = habitRecordsRepository.findById(habitRecordId);
+  const checkHabitRecordId = async (habitRecordId) => {
+    const target = await habitRecordsRepository.findById(habitRecordId);
     if (!target) {
       throw new NotFoundException('habitRecordId가 존재하지 않습니다.');
     }
@@ -98,6 +97,13 @@ export const validateHabitRecord = async (req, res, next) => {
     }
   };
 
+  const returnHabitNameById = async (habitId) => {
+    const habit = await prisma.habit.findUnique({
+      where: { id: habitId },
+    });
+    return (req.name = habit.name);
+  };
+
   try {
     const { method } = req;
     const { studyId, habitId, habitRecordId } = req.params;
@@ -105,33 +111,35 @@ export const validateHabitRecord = async (req, res, next) => {
 
     switch (method) {
       case 'GET':
-        isIdExist(studyId);
+        isValueExist(studyId, 'studyId는 필수입니다.');
         await checkStudyId(studyId);
         isDate(startDate);
         isDate(endDate);
         break;
 
       case 'POST':
-        isIdExist(studyId);
-        isIdExist(habitId);
+        isValueExist(studyId, 'studyId는 필수입니다.');
+        isValueExist(habitId, 'habitId는 필수입니다.');
         await checkStudyId(studyId);
         await checkHabitId(habitId);
         await checkStudyAndHabitRelation(studyId, habitId);
         await isAleadyCreate(studyId, habitId);
+        await returnHabitNameById(habitId)
+        break;
+
+      case 'PATCH':
+        isValueExist(req.body.name, 'name은 필수입니다.')
+        await checkHabitId(habitId);
         break;
 
       case 'DELETE':
-        isIdExist(habitRecordId);
-        checkHabitRecordId(habitRecordId);
+        isValueExist(habitRecordId, 'habitRecordId는 필수입니다.');
+        await checkHabitRecordId(habitRecordId);
         break;
     }
 
-    next();
+    
   } catch (error) {
-    console.log(error);
-    res.status(error.statusCode).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };

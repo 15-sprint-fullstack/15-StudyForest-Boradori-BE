@@ -1,7 +1,7 @@
 //습관기록 API문서
 /**
  * @swagger
- * /studies/{studyId}/habit-record:
+ * /studies/{studyId}/habit-records:
  *   get:
  *     tags:
  *       - HabitRecord
@@ -16,10 +16,12 @@
  *         name: startDate
  *         schema:
  *           type: string
+ *           example: 2026-08-30
  *       - in: query
  *         name: endDate
  *         schema:
  *           type: string
+ *           example: 2026-09-05
  *     responses:
  *       200:
  *         description: 조회 성공
@@ -28,7 +30,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit-record/{habitId}:
+ * /studies/{studyId}/habit-records/{habitId}:
  *   post:
  *     tags:
  *       - HabitRecord
@@ -52,7 +54,36 @@
 
 /**
  * @swagger
- * /studies/habit-record/{habitRecordId}:
+ * /studies/habit-records/{habitId}:
+ *   patch:
+ *     tags:
+ *       - HabitRecord
+ *     summary: 습관 이름 변경
+ *     parameters:
+ *       - in: path
+ *         name: habitId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: 고양이 밥주기
+ *     responses:
+ *       201:
+ *         description: 변경 성공
+ *
+ */
+
+/**
+ * @swagger
+ * /studies/habit-records/{habitRecordId}:
  *   delete:
  *     tags:
  *       - HabitRecord
