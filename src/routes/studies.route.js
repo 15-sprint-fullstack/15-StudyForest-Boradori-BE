@@ -18,7 +18,7 @@ studiesRouter.get('/', async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 6;
 
     const [studies, totalCount] = await Promise.all([
-      studiesRepository.find(page, limit, sort, sortBy, keyword),
+      studiesRepository.findAll(page, limit, sort, sortBy, keyword),
       studiesRepository.count(keyword),
     ]);
     res.status(200).json({

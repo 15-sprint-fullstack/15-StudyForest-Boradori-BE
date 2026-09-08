@@ -1,6 +1,6 @@
 import { prisma } from '#db/prisma.js';
 
-function find(page, limit, sort, sortBy, keyword) {
+function findAll(page, limit, sort, sortBy, keyword) {
   const validSort = sort === 'asc' ? 'asc' : 'desc';
   const validSortBy = sortBy === 'point' ? 'point' : 'createdAt';
   return prisma.study.findMany({
@@ -34,8 +34,8 @@ function count(keyword) {
       ? {
           OR: [
             { name: { contains: keyword, mode: 'insensitive' } },
+            { nickname: { contains: keyword, mode: 'insensitive' } },
             { description: { contains: keyword, mode: 'insensitive' } },
-            { tags: { hasSome: [keyword] } },
           ],
         }
       : {},
@@ -62,7 +62,7 @@ function remove(studyId) {
 }
 
 export const studiesRepository = {
-  find,
+  findAll,
   findById,
   count,
   create,
