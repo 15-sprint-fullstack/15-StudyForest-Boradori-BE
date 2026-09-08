@@ -54,6 +54,35 @@
 
 /**
  * @swagger
+ * /studies/habit-records/{habitId}:
+ *   patch:
+ *     tags:
+ *       - HabitRecord
+ *     summary: 습관 이름 변경
+ *     parameters:
+ *       - in: path
+ *         name: habitId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: 고양이 밥주기
+ *     responses:
+ *       201:
+ *         description: 변경 성공
+ *
+ */
+
+/**
+ * @swagger
  * /studies/habit-records/{habitRecordId}:
  *   delete:
  *     tags:

@@ -13,9 +13,9 @@ export const validateHabitRecord = async (req, res, next) => {
     }
   };
 
-  const isIdExist = (Id) => {
-    if (!Id) {
-      throw new BadRequestException('studyId 또는 habitId는 필수 입니다.');
+  const isValueExist = (value, errorMessage) => {
+    if (!value) {
+      throw new BadRequestException(errorMessage);
     }
   };
 
@@ -111,15 +111,15 @@ export const validateHabitRecord = async (req, res, next) => {
 
     switch (method) {
       case 'GET':
-        isIdExist(studyId);
+        isValueExist(studyId, 'studyId는 필수입니다.');
         await checkStudyId(studyId);
         isDate(startDate);
         isDate(endDate);
         break;
 
       case 'POST':
-        isIdExist(studyId);
-        isIdExist(habitId);
+        isValueExist(studyId, 'studyId는 필수입니다.');
+        isValueExist(habitId, 'habitId는 필수입니다.');
         await checkStudyId(studyId);
         await checkHabitId(habitId);
         await checkStudyAndHabitRelation(studyId, habitId);
@@ -128,11 +128,12 @@ export const validateHabitRecord = async (req, res, next) => {
         break;
 
       case 'PATCH':
+        isValueExist(req.body.name, 'name은 필수입니다.')
         await checkHabitId(habitId);
         break;
 
       case 'DELETE':
-        isIdExist(habitRecordId);
+        isValueExist(habitRecordId);
         checkHabitRecordId(habitRecordId);
         break;
     }
