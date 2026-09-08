@@ -21,12 +21,14 @@
  *         name: sort
  *         schema:
  *           type: string
- *           example: desc
+ *           enum: [asc, desc]
+ *           default: desc
  *       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
- *           example: point
+ *           enum: [createdAt, point]
+ *           default: createdAt
  *       - in: query
  *         name: keyword
  *         schema:
@@ -40,7 +42,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}
+ * /studies/{studyId}:
  *   get:
  *     tags:
  *       - Study
@@ -86,10 +88,7 @@
  *               password:
  *                 type: string
  *                 example: 1q2w3e4r!
- *               point:
- *                 type: integer
- *                 example: 30
- *      responses:
+ *     responses:
  *       201:
  *         description: 생성 성공
  *
@@ -97,7 +96,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}
+ * /studies/{studyId}:
  *   patch:
  *     tags:
  *       - Study
@@ -133,7 +132,7 @@
  *               point:
  *                 type: integer
  *                 example: 30
- *      responses:
+ *     responses:
  *       200:
  *         description: 변경 성공
  *
@@ -141,7 +140,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}
+ * /studies/{studyId}:
  *   delete:
  *     tags:
  *       - Study
@@ -152,7 +151,7 @@
  *         required: true
  *         schema:
  *           type: string
- *      responses:
+ *     responses:
  *       200:
  *         description: 삭제 성공
  *

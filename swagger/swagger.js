@@ -10,6 +10,11 @@ const options = {
       version: '1.0.0',
       description: '팀 보라도리의 초급 팀 프로젝트 관련 API 문서입니다.',
     },
+    tags: [
+    { name: 'Study', description: '스터디 관련 API' },
+    { name: 'Habit', description: '습관 관련 API' },
+    { name: 'HabitRecord', description: '습관기록 관련 API' }
+  ],
     servers: [
       {
         url: isProduction
