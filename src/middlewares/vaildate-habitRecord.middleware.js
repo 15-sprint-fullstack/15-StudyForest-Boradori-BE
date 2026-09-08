@@ -134,17 +134,12 @@ export const validateHabitRecord = async (req, res, next) => {
 
       case 'DELETE':
         isValueExist(habitRecordId, 'habitRecordId는 필수입니다.');
-        checkHabitRecordId(habitRecordId);
+        await checkHabitRecordId(habitRecordId);
         break;
     }
 
     
   } catch (error) {
-    console.log(error);
-    res.status(error.statusCode).json({
-      success: false,
-      message: error.message,
-    });
     next(error);
   }
 };
