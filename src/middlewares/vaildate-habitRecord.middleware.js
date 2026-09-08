@@ -35,7 +35,6 @@ export const validateHabitRecord = async (req, res, next) => {
     if (!habit) {
       throw new NotFoundException('habitId가 존재하지 않습니다.');
     }
-    return (req.name = habit.name);
   };
 
   const checkHabitRecordId = (habitRecordId) => {
@@ -98,6 +97,13 @@ export const validateHabitRecord = async (req, res, next) => {
     }
   };
 
+  const returnHabitNameById = async (habitId) => {
+    const habit = await prisma.habit.findUnique({
+      where: { id: habitId },
+    });
+    return (req.name = habit.name);
+  };
+
   try {
     const { method } = req;
     const { studyId, habitId, habitRecordId } = req.params;
@@ -118,6 +124,11 @@ export const validateHabitRecord = async (req, res, next) => {
         await checkHabitId(habitId);
         await checkStudyAndHabitRelation(studyId, habitId);
         await isAleadyCreate(studyId, habitId);
+        await returnHabitNameById(habitId)
+        break;
+
+      case 'PATCH':
+        await checkHabitId(habitId);
         break;
 
       case 'DELETE':
