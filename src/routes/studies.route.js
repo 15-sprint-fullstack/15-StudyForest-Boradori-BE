@@ -1,7 +1,7 @@
 import express from 'express';
 import { prisma } from '#db/prisma.js';
 import { createStudySchema, updateStudySchema } from '#schemas';
-import { emojiRouter, emojisRouter } from './emojis.route.js';
+import { emojisRouter } from './emojis.route.js';
 import { habitRecordsRouter } from './habitRecords.route.js';
 import { habitRouter } from './habits.route.js';
 import { studyRepository } from '../repositories/studies.repository.js';

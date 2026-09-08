@@ -1,7 +1,7 @@
 //습관 API문서
 /**
  * @swagger
- * /studies/{studyId}/habit:
+ * /studies/{studyId}/habits:
  *   get:
  *     tags:
  *       - Habit
@@ -20,7 +20,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit:
+ * /studies/{studyId}/habits:
  *   post:
  *     tags:
  *       - Habit
@@ -49,7 +49,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit/{habitId}:
+ * /studies/{studyId}/habits/{habitId}:
  *   patch:
  *     tags:
  *       - Habit
@@ -83,7 +83,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit/{habitId}:
+ * /studies/{studyId}/habits/{habitId}:
  *   delete:
  *     tags:
  *       - Habit

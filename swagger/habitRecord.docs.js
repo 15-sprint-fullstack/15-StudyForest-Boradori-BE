@@ -1,7 +1,7 @@
 //습관기록 API문서
 /**
  * @swagger
- * /studies/{studyId}/habit-record:
+ * /studies/{studyId}/habit-records:
  *   get:
  *     tags:
  *       - HabitRecord
@@ -30,7 +30,7 @@
 
 /**
  * @swagger
- * /studies/{studyId}/habit-record/{habitId}:
+ * /studies/{studyId}/habit-records/{habitId}:
  *   post:
  *     tags:
  *       - HabitRecord
@@ -54,7 +54,7 @@
 
 /**
  * @swagger
- * /studies/habit-record/{habitRecordId}:
+ * /studies/habit-records/{habitRecordId}:
  *   delete:
  *     tags:
  *       - HabitRecord
