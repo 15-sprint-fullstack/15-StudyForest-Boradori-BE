@@ -31,7 +31,7 @@
     "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
     "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
     "prisma:studio": "dotenv -e ./env/.env.development -- npx prisma studio",
-    "seed": "node --env-file=./env/.env.development ./prisma/scripts/seed.js --allow-reset=study_forest_boradori_db",
+    "seed": "node --env-file=./env/.env.development ./prisma/scripts/seed.js --allow-reset=study_forest_db",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "format": "prettier --write ."
