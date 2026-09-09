@@ -138,7 +138,7 @@ export const validateHabitRecord = async (req, res, next) => {
         break;
     }
 
-    
+    next();
   } catch (error) {
     next(error);
   }
