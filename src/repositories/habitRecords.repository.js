@@ -22,7 +22,7 @@ function findList(studyId, startDate, endDate) {
   const utcStartDate = fromZonedTime(startDate, 'Asia/Seoul');
   const utcEndDate = fromZonedTime(endDate, 'Asia/Seoul');
 
-  console.log('변환된시간:', utcStartDate, utcEndtDate);
+  console.log('변환된시간:', utcStartDate, utcEndDate);
 
   return prisma.habitRecord.findMany({
     where: {
@@ -57,7 +57,7 @@ function remove(studyId, habitId, startDate, endDate) {
         lte: utcEndDate,
       },
     },
-  })
+  });
 }
 
 export const habitRecordsRepository = {
