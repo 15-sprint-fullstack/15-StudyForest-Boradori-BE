@@ -83,17 +83,32 @@
 
 /**
  * @swagger
- * /studies/habit-records/{habitRecordId}:
+ * /studies/{studyId}/habit-records/{habitId}:
  *   delete:
  *     tags:
  *       - HabitRecord
  *     summary: 습관 기록 삭제
  *     parameters:
  *       - in: path
- *         name: habitRecordId
+ *         name: habitId
  *         required: true
  *         schema:
  *           type: string
+ *       - in: path
+ *         name: studyId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: startDate
+ *         schema:
+ *           type: string
+ *           example: 2026-08-30
+ *       - in: query
+ *         name: endDate
+ *         schema:
+ *           type: string
+ *           example: 2026-09-05
  *     responses:
  *       200:
  *         description: 삭제 성공

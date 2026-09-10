@@ -57,7 +57,7 @@ function remove(studyId, habitId, startDate, endDate) {
         lte: utcEndDate,
       },
     },
-  })
+  });
 }
 
 export const habitRecordsRepository = {
