@@ -20,7 +20,7 @@ function findById(habitRecordId) {
 
 function findList(studyId, startDate, endDate) {
   const utcStartDate = fromZonedTime(startDate, 'Asia/Seoul');
-  const utcEndtDate = fromZonedTime(endDate, 'Asia/Seoul');
+  const utcEndDate = fromZonedTime(endDate, 'Asia/Seoul');
 
   console.log('변환된시간:', utcStartDate, utcEndtDate);
 
@@ -29,7 +29,7 @@ function findList(studyId, startDate, endDate) {
       studyId,
       createdAt: {
         gte: utcStartDate,
-        lte: utcEndtDate,
+        lte: utcEndDate,
       },
     },
     orderBy: {
@@ -45,10 +45,19 @@ function updateAllByName(habitId, habitName) {
   });
 }
 
-function remove(habitRecordId) {
-  return prisma.habitRecord.delete({
-    where: { id: habitRecordId },
-  });
+function remove(studyId, habitId, startDate, endDate) {
+  const utcStartDate = fromZonedTime(startDate, 'Asia/Seoul');
+  const utcEndDate = fromZonedTime(endDate, 'Asia/Seoul');
+  return prisma.habitRecord.deleteMany({
+    where: {
+      studyId,
+      habitId,
+      createdAt: {
+        gte: utcStartDate,
+        lte: utcEndDate,
+      },
+    },
+  })
 }
 
 export const habitRecordsRepository = {
