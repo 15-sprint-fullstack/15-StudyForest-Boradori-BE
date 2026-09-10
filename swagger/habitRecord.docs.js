@@ -94,12 +94,12 @@
  *         required: true
  *         schema:
  *           type: string
- *      - in: path
+ *       - in: path
  *         name: studyId
  *         required: true
  *         schema:
  *           type: string
- *      - in: query
+ *       - in: query
  *         name: startDate
  *         schema:
  *           type: string
