@@ -53,32 +53,44 @@ habitRecordsRouter.post(
   },
 );
 
-habitRecordsRouter.patch('/:habitId', validateHabitRecord, async (req, res, next) => {
-  try {
-    const habitId = req.params.habitId;
-    const name = req.body.name;
-    const updatedHabitName = await habitRecordsRepository.updateAllByName(habitId, name);
-    res.status(200).json({
-      success: true,
-      data: updatedHabitName,
-      message: '습관이름 업데이트 완료',
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-habitRecordsRouter.delete(
-  '/:habitRecordId',
+habitRecordsRouter.patch(
+  '/:habitId',
   validateHabitRecord,
   async (req, res, next) => {
     try {
-      const { habitRecordId } = req.params;
-      const deleteTarget = await habitRecordsRepository.remove(habitRecordId);
-
+      const habitId = req.params.habitId;
+      const name = req.body.name;
+      const updatedHabitName = await habitRecordsRepository.updateAllByName(
+        habitId,
+        name,
+      );
       res.status(200).json({
         success: true,
-        data: deleteTarget,
+        data: updatedHabitName,
+        message: '습관이름 업데이트 완료',
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+habitRecordsRouter.delete(
+  '/:habitId',
+  validateHabitRecord,
+  async (req, res, next) => {
+    try {
+      const { studyId, habitId } = req.params;
+      const { startDate, endDate } = req.query;
+      const deletedTarget = await habitRecordsRepository.remove(
+        studyId,
+        habitId,
+        startDate,
+        endDate,
+      );
+      res.status(200).json({
+        success: true,
+        data: deletedTarget[0],
         message: '습관기록 삭제 완료',
       });
     } catch (error) {
@@ -86,3 +98,23 @@ habitRecordsRouter.delete(
     }
   },
 );
+
+// 기존 습관기록 삭제 코드 (새로운 코드 작동 잘 되면 삭제)
+// habitRecordsRouter.delete(
+//   '/:habitRecordId',
+//   validateHabitRecord,
+//   async (req, res, next) => {
+//     try {
+//       const { habitRecordId } = req.params;
+//       const deleteTarget = await habitRecordsRepository.remove(habitRecordId);
+
+//       res.status(200).json({
+//         success: true,
+//         data: deleteTarget,
+//         message: '습관기록 삭제 완료',
+//       });
+//     } catch (error) {
+//       next(error);
+//     }
+//   },
+// );
