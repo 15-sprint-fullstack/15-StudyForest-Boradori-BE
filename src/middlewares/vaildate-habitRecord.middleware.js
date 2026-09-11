@@ -133,8 +133,13 @@ export const validateHabitRecord = async (req, res, next) => {
         break;
 
       case 'DELETE':
-        isValueExist(habitRecordId, 'habitRecordId는 필수입니다.');
-        await checkHabitRecordId(habitRecordId);
+        isValueExist(studyId, 'studyId는 필수입니다.');
+        isValueExist(habitId, 'habitId는 필수입니다.');
+        await checkStudyId(studyId);
+        await checkHabitId(habitId);
+        await checkStudyAndHabitRelation(studyId, habitId);
+        isDate(startDate);
+        isDate(endDate);
         break;
     }
 
