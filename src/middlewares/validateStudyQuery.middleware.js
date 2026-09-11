@@ -15,7 +15,7 @@ export const validateStudyQuery = (req, res, next) => {
 
     if (
       typeof page !== 'string' ||
-      parsedPage <= 0 ||
+      parsedPage < 1 ||
       !Number.isSafeInteger(parsedPage)
     ) {
       throw new BadRequestException(
@@ -25,11 +25,12 @@ export const validateStudyQuery = (req, res, next) => {
 
     if (
       typeof limit !== 'string' ||
-      parsedLimit <= 0 ||
+      parsedLimit < 1 ||
+      parsedLimit > 12 ||
       !Number.isSafeInteger(parsedLimit)
     ) {
       throw new BadRequestException(
-        '스터디 리미트 값은 1 이상의 정수여야 합니다.',
+        '스터디 리미트 값은 1 이상, 12 이하의 정수여야 합니다.',
       );
     }
 
