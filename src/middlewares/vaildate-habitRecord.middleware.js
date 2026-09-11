@@ -1,6 +1,8 @@
+import { fromZonedTime } from 'date-fns-tz';
 import { prisma } from '#db/prisma.js';
 import { habitRecordsRepository } from '#repositories';
 import { BadRequestException } from '../exceptions/bad-request-exception.js';
+import { ConflictException } from '../exceptions/conflict-exception.js';
 import { NotFoundException } from '../exceptions/not-found-exception.js';
 
 export const validateHabitRecord = async (req, res, next) => {
@@ -55,47 +57,73 @@ export const validateHabitRecord = async (req, res, next) => {
     }
   };
 
-  const isAleadyCreate = async (studyId, habitId) => {
-    const now = new Date();
-    const start = new Date(
-      Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate(),
-        0,
-        0,
-        0,
-        0,
-      ),
-    );
+  const getUTCRangeByKoreaDate = (startDate, endDate = startDate) => {
+    const rangeStart = fromZonedTime(`${startDate}T00:00:00.000`, 'Asia/Seoul');
+    const rangeEnd = fromZonedTime(`${endDate}T23:59:59.999`, 'Asia/Seoul');
+    return { rangeStart, rangeEnd };
+  };
 
-    const end = new Date(
-      Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate(),
-        23,
-        59,
-        59,
-        999,
-      ),
-    );
-    const result = await prisma.habitRecord.findFirst({
+  const isAlreadyCreated = async (studyId, habitId) => {
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul'}).format(new Date());
+    const { rangeStart, rangeEnd } = getUTCRangeByKoreaDate(today);
+    const record = await prisma.habitRecord.findFirst({
       where: {
         studyId,
         habitId,
         createdAt: {
-          gte: start,
-          lte: end,
+          gte: rangeStart,
+          lte: rangeEnd,
         },
       },
     });
-    if (result) {
-      throw new BadRequestException(
-        '습관기록은 하루에 하나만 생성 가능합니다.',
-      );
+    if (record) {
+      throw new ConflictException('습관 기록은 하루에 하나만 생성 가능합니다.');
     }
   };
+
+
+  // 호영님 기존 검증 함수 - 논의후 리팩토링시 삭제
+  // const isAleadyCreate = async (studyId, habitId) => {
+  //   const now = new Date();
+  //   const start = new Date(
+  //     Date.UTC(
+  //       now.getUTCFullYear(),
+  //       now.getUTCMonth(),
+  //       now.getUTCDate(),
+  //       0,
+  //       0,
+  //       0,
+  //       0,
+  //     ),
+  //   );
+
+  //   const end = new Date(
+  //     Date.UTC(
+  //       now.getUTCFullYear(),
+  //       now.getUTCMonth(),
+  //       now.getUTCDate(),
+  //       23,
+  //       59,
+  //       59,
+  //       999,
+  //     ),
+  //   );
+  //   const result = await prisma.habitRecord.findFirst({
+  //     where: {
+  //       studyId,
+  //       habitId,
+  //       createdAt: {
+  //         gte: start,
+  //         lte: end,
+  //       },
+  //     },
+  //   });
+  //   if (result) {
+  //     throw new BadRequestException(
+  //       '습관기록은 하루에 하나만 생성 가능합니다.',
+  //     );
+  //   }
+  // };
 
   const returnHabitNameById = async (habitId) => {
     const habit = await prisma.habit.findUnique({
@@ -123,12 +151,12 @@ export const validateHabitRecord = async (req, res, next) => {
         await checkStudyId(studyId);
         await checkHabitId(habitId);
         await checkStudyAndHabitRelation(studyId, habitId);
-        await isAleadyCreate(studyId, habitId);
-        await returnHabitNameById(habitId)
+        await isAlreadyCreated(studyId, habitId);
+        await returnHabitNameById(habitId);
         break;
 
       case 'PATCH':
-        isValueExist(req.body.name, 'name은 필수입니다.')
+        isValueExist(req.body.name, 'name은 필수입니다.');
         await checkHabitId(habitId);
         break;
 
