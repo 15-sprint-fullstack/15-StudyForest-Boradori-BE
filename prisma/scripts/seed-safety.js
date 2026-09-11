@@ -1,4 +1,4 @@
-const DATABASE_NAME = 'study_forest_boradori_db';
+const DATABASE_NAME = 'study_forest_db';
 const RESET_CONFIRMATION = `--allow-reset=${DATABASE_NAME}`;
 //const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]']);
 

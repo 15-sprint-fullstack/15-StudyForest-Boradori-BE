@@ -1,4 +1,5 @@
 import express from 'express';
+import { validateStudy, validateStudyQuery } from '#middlewares';
 import { studiesRepository } from '#repositories';
 import { createStudySchema, updateStudySchema } from '#schemas';
 import { emojisRouter } from './emojis.route.js';
@@ -7,15 +8,9 @@ import { habitsRouter } from './habits.route.js';
 
 export const studiesRouter = express.Router();
 
-// zod 로 파싱해서 에러 핸들러 하는 부분 예시로 적어뒀습니다.
-// req.body에 적은 내용 형식이 검증하는 단계입니다.
-// 차후 validate가 확실히 정해지면 그 쪽으로 들어갑니다.
-
-studiesRouter.get('/', async (req, res, next) => {
+studiesRouter.get('/', validateStudyQuery, async (req, res, next) => {
   try {
-    const { keyword, sort, sortBy } = req.query;
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 6;
+    const { page, limit, sort, sortBy, keyword } = res.locals.studyQuery;
 
     const [studies, totalCount] = await Promise.all([
       studiesRepository.findAll(page, limit, sort, sortBy, keyword),
@@ -34,7 +29,7 @@ studiesRouter.get('/', async (req, res, next) => {
   }
 });
 
-studiesRouter.get('/:studyId', async (req, res, next) => {
+studiesRouter.get('/:studyId', validateStudy, async (req, res, next) => {
   try {
     const study = await studiesRepository.findById(req.params.studyId);
     res.status(200).json({
@@ -61,10 +56,10 @@ studiesRouter.post('/', async (req, res, next) => {
   }
 });
 
-studiesRouter.patch('/:studyId', async (req, res, next) => {
+studiesRouter.patch('/:studyId', validateStudy, async (req, res, next) => {
   try {
     const studyId = req.params.studyId;
-    const data = req.body;
+    const data = updateStudySchema.parse(req.body);
     const updatedStudy = await studiesRepository.update(studyId, data);
     res.status(200).json({
       success: true,
@@ -76,7 +71,7 @@ studiesRouter.patch('/:studyId', async (req, res, next) => {
   }
 });
 
-studiesRouter.delete('/:studyId', async (req, res, next) => {
+studiesRouter.delete('/:studyId', validateStudy, async (req, res, next) => {
   try {
     const studyId = req.params.studyId;
     const deletedStudy = await studiesRepository.remove(studyId);
