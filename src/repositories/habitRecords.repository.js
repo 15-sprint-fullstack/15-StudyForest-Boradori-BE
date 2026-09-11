@@ -19,8 +19,8 @@ function findById(habitRecordId) {
 }
 
 function findList(studyId, startDate, endDate) {
-  const utcStartDate = fromZonedTime(startDate, 'Asia/Seoul');
-  const utcEndDate = fromZonedTime(endDate, 'Asia/Seoul');
+  const utcStartDate = fromZonedTime(`${startDate}T00:00:00.000`, 'Asia/Seoul');
+  const utcEndDate = fromZonedTime(`${endDate}T23:59:59.999`, 'Asia/Seoul');
 
   console.log('변환된시간:', utcStartDate, utcEndDate);
 
