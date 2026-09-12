@@ -1,5 +1,6 @@
 import { prisma } from '#db/prisma.js';
 import { emojiTranscation } from '#utils';
+import { BadRequestException } from '../exceptions/bad-request-exception.js';
 
 function findByStudyId(studyId) {
   return prisma.emoji.findMany({
@@ -28,8 +29,10 @@ function createOrIncreaseCount({ studyId, emojiType }) {
       });
     }
 
-    if (emoji.count >= 100) {
-      throw new Error('이모지는 최대 100개까지 추가할 수 있습니다.');
+    if (emoji.count >= 99) {
+      throw new BadRequestException(
+        '이모지는 최대 99개까지 추가할 수 있습니다.',
+      );
     }
 
     return tx.emoji.update({
@@ -44,13 +47,7 @@ function createOrIncreaseCount({ studyId, emojiType }) {
 // 0이 되면 삭제, 아니라면 1씩 감소
 function deleteOrDecreaseCount({ studyId, emojiType }) {
   return emojiTranscation(async (tx) => {
-    const where = {
-      studyId_emojiType: { studyId, emojiType },
-    };
-
-    const emoji = await tx.emoji.findUnique({ where });
-    console.log(emoji);
-    await tx.emoji.update({
+    await tx.emoji.updateMany({
       where: {
         studyId,
         emojiType,
@@ -61,7 +58,7 @@ function deleteOrDecreaseCount({ studyId, emojiType }) {
       },
     });
 
-    const deleted = await tx.emoji.deleteMany({
+    await tx.emoji.deleteMany({
       where: {
         studyId,
         emojiType,
@@ -69,7 +66,11 @@ function deleteOrDecreaseCount({ studyId, emojiType }) {
       },
     });
 
-    return deleted;
+    return tx.emoji.findUnique({
+      where: {
+        studyId_emojiType: { studyId, emojiType },
+      },
+    });
   });
 }
 

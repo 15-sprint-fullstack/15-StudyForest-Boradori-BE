@@ -1,12 +1,13 @@
 import express from 'express';
 import { emojisRepository } from '../repositories/emojis.repository.js';
 import { createEmojiSchema } from '#schemas';
+import { validateEmoji, validateStudy } from '#middlewares';
 
 export const emojisRouter = express.Router({ mergeParams: true });
 
 //이모지 관련 API개발 공간
 //아래는 예시코드 입니다.
-emojisRouter.get('/', async (req, res, next) => {
+emojisRouter.get('/', validateStudy, async (req, res, next) => {
   const { studyId } = req.params;
   try {
     const emoji = await emojisRepository.findByStudyId(studyId);
@@ -21,7 +22,7 @@ emojisRouter.get('/', async (req, res, next) => {
 });
 
 // 없으면 생성, 있으면 count 1 올리기
-emojisRouter.post('/', async (req, res, next) => {
+emojisRouter.post('/', validateStudy, async (req, res, next) => {
   try {
     const { studyId } = req.params;
     const { emojiType } = createEmojiSchema.parse(req.body);
@@ -39,21 +40,26 @@ emojisRouter.post('/', async (req, res, next) => {
   }
 });
 
-emojisRouter.delete('/', async (req, res, next) => {
-  try {
-    const { studyId } = req.params;
-    const { emojiType } = createEmojiSchema.parse(req.body);
+emojisRouter.delete(
+  '/',
+  validateStudy,
+  validateEmoji,
+  async (req, res, next) => {
+    try {
+      const { studyId } = req.params;
+      const { emojiType } = createEmojiSchema.parse(req.body);
 
-    const deleteEmoji = await emojisRepository.deleteOrDecreaseCount({
-      studyId,
-      emojiType,
-    });
-    res.status(200).json({
-      success: true,
-      data: deleteEmoji,
-      message: '스터디 삭제 / 카운트 감소 완료',
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+      const deleteEmoji = await emojisRepository.deleteOrDecreaseCount({
+        studyId,
+        emojiType,
+      });
+      res.status(200).json({
+        success: true,
+        data: deleteEmoji,
+        message: '스터디 삭제 / 카운트 감소 완료',
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
