@@ -1,6 +1,6 @@
 import { prisma } from '#db/prisma.js';
 import { createEmojiSchema } from '#schemas';
-import { NotFoundException } from '../exceptions/not-found-exception.js';
+import { NotFoundException } from '../../exceptions/not-found-exception.js';
 
 export const validateEmoji = async (req, res, next) => {
   try {

@@ -1,7 +1,7 @@
 import { prisma } from '#db/prisma.js';
-import { BadRequestException } from '../exceptions/bad-request-exception.js';
-import { ConflictException } from '../exceptions/conflict-exception.js';
-import { NotFoundException } from '../exceptions/not-found-exception.js';
+import { BadRequestException } from '../../exceptions/bad-request-exception.js';
+import { ConflictException } from '../../exceptions/conflict-exception.js';
+import { NotFoundException } from '../../exceptions/not-found-exception.js';
 
 const HABITS_LIMIT = 18;
 

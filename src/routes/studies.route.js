@@ -6,6 +6,7 @@ import { accessRouter } from './access.route.js';
 import { emojisRouter } from './emojis.route.js';
 import { habitRecordsRouter } from './habitRecords.route.js';
 import { habitsRouter } from './habits.route.js';
+import { requireStudyAccess } from '../middlewares/require-studyAccess.middleware.js';
 
 export const studiesRouter = express.Router();
 
@@ -57,34 +58,45 @@ studiesRouter.post('/', async (req, res, next) => {
   }
 });
 
-studiesRouter.patch('/:studyId', validateStudy, async (req, res, next) => {
-  try {
-    const studyId = req.params.studyId;
-    const data = updateStudySchema.parse(req.body);
-    const updatedStudy = await studiesRepository.update(studyId, data);
-    res.status(200).json({
-      success: true,
-      data: updatedStudy,
-      message: '스터디 업데이트 완료',
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+studiesRouter.patch(
+  '/:studyId',
+  requireStudyAccess,
+  validateStudy,
+  async (req, res, next) => {
+    try {
+      const studyId = req.params.studyId;
+      const data = updateStudySchema.parse(req.body);
 
-studiesRouter.delete('/:studyId', validateStudy, async (req, res, next) => {
-  try {
-    const studyId = req.params.studyId;
-    const deletedStudy = await studiesRepository.remove(studyId);
-    res.status(200).json({
-      success: true,
-      data: deletedStudy,
-      message: '스터디 삭제 완료',
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+      const updatedStudy = await studiesRepository.update(studyId, data);
+      res.status(200).json({
+        success: true,
+        data: updatedStudy,
+        message: '스터디 업데이트 완료',
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+studiesRouter.delete(
+  '/:studyId',
+  requireStudyAccess,
+  validateStudy,
+  async (req, res, next) => {
+    try {
+      const studyId = req.params.studyId;
+      const deletedStudy = await studiesRepository.remove(studyId);
+      res.status(200).json({
+        success: true,
+        data: deletedStudy,
+        message: '스터디 삭제 완료',
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 //스터디 외에 습관, 습관기록, 이모지 라우팅
 //스터디의 API들 보다 밑에 있어야 정상작동

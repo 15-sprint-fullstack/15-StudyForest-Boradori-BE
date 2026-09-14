@@ -48,6 +48,7 @@
     "date-fns-tz": "^3.2.0",
     "emoji-regex": "^10.6.0",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "pg": "^8.23.0",
     "swagger-jsdoc": "^6.3.0",
     "swagger-ui-express": "^5.0.1",

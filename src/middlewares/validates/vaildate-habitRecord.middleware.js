@@ -1,9 +1,9 @@
 import { fromZonedTime } from 'date-fns-tz';
 import { prisma } from '#db/prisma.js';
 import { habitRecordsRepository } from '#repositories';
-import { BadRequestException } from '../exceptions/bad-request-exception.js';
-import { ConflictException } from '../exceptions/conflict-exception.js';
-import { NotFoundException } from '../exceptions/not-found-exception.js';
+import { BadRequestException } from '../../exceptions/bad-request-exception.js';
+import { ConflictException } from '../../exceptions/conflict-exception.js';
+import { NotFoundException } from '../../exceptions/not-found-exception.js';
 
 export const validateHabitRecord = async (req, res, next) => {
   const isDate = (dateString) => {
@@ -64,7 +64,9 @@ export const validateHabitRecord = async (req, res, next) => {
   };
 
   const isAlreadyCreated = async (studyId, habitId) => {
-    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul'}).format(new Date());
+    const today = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Seoul',
+    }).format(new Date());
     const { rangeStart, rangeEnd } = getUTCRangeByKoreaDate(today);
     const record = await prisma.habitRecord.findFirst({
       where: {
@@ -80,7 +82,6 @@ export const validateHabitRecord = async (req, res, next) => {
       throw new ConflictException('습관 기록은 하루에 하나만 생성 가능합니다.');
     }
   };
-
 
   // 호영님 기존 검증 함수 - 논의후 리팩토링시 삭제
   // const isAleadyCreate = async (studyId, habitId) => {
