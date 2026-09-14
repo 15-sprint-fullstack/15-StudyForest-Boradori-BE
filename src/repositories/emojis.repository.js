@@ -11,6 +11,7 @@ function findByStudyId(studyId) {
 // 이거는 이제 완전 새로운 데이터를 받는 거고, 기존에 있으면 플러스하는 방향을 해야하는데.
 // 그러면 이번에는 새롭게 upsert를 써볼까요? -> 하려다가 limti 제한 값 생각하고 분기로 나눔
 // 뭔가 더 좋은 방법이 있을 것 같은데
+// 아 뭔가 더 리팩토링 할 수 있을 것 같은데....
 function createOrIncreaseCount({ studyId, emojiType }) {
   return emojiTranscation(async (tx) => {
     const emoji = await tx.emoji.findUnique({
