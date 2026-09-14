@@ -2,11 +2,12 @@ import express from 'express';
 import { validateStudy, validateStudyQuery } from '#middlewares';
 import { studiesRepository } from '#repositories';
 import { createStudySchema, updateStudySchema } from '#schemas';
+import { hashPassword } from '#utils';
+import { requireStudyAccess } from '../middlewares/require-studyAccess.middleware.js';
 import { accessRouter } from './access.route.js';
 import { emojisRouter } from './emojis.route.js';
 import { habitRecordsRouter } from './habitRecords.route.js';
 import { habitsRouter } from './habits.route.js';
-import { requireStudyAccess } from '../middlewares/require-studyAccess.middleware.js';
 
 export const studiesRouter = express.Router();
 
@@ -47,6 +48,7 @@ studiesRouter.get('/:studyId', validateStudy, async (req, res, next) => {
 studiesRouter.post('/', async (req, res, next) => {
   try {
     const data = createStudySchema.parse(req.body);
+    data.password = await hashPassword(data.password);
     const newStudy = await studiesRepository.create(data);
     res.status(201).json({
       success: true,
@@ -66,7 +68,7 @@ studiesRouter.patch(
     try {
       const studyId = req.params.studyId;
       const data = updateStudySchema.parse(req.body);
-
+      data.password = await hashPassword(data.password);
       const updatedStudy = await studiesRepository.update(studyId, data);
       res.status(200).json({
         success: true,

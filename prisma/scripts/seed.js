@@ -10,7 +10,7 @@ const makeStudyInput = () => ({
   nickname: faker.lorem.sentence({ min: 3, max: 8 }),
   name: faker.lorem.sentence({ min: 3, max: 8 }),
   description: faker.lorem.paragraphs({ min: 2, max: 5 }, '\n\n'),
-  background: faker.color.human(),
+  background: String(faker.number.int({ min: 1, max: 8 })),
   password,
   point: faker.number.int({ min: 0, max: 50 }),
 });

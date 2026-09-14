@@ -6,7 +6,7 @@ export const createStudySchema = z
     nickname: z.string().min(1, '닉네임은 필수입니다.').max(20),
     name: z.string().min(1, '스터디 이름은 필수입니다.').max(50),
     description: z.string().min(1, '설명은 필수입니다'),
-    background: z.string().optional(),
+    background: z.enum(['1', '2', '3', '4', '5', '6', '7', '8']).optional(),
     password: z.string().min(4, '비밀번호는 4자 이상이여야 합니다'),
   })
   .strict();

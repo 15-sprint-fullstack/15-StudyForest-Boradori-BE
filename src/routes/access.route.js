@@ -3,9 +3,18 @@ import { studiesRepository } from '#repositories';
 import { comparePassword, generateSession, saveSession } from '#utils';
 import { Forbidden } from '../exceptions/forbidden-exception.js';
 import { NotFoundException } from '../exceptions/not-found-exception.js';
+import { requireStudyAccess } from '../middlewares/require-studyAccess.middleware.js';
 
 export const accessRouter = express.Router({ mergeParams: true });
 const ACCESS_DURATION = 15 * 60 * 1000;
+
+accessRouter.get('/', requireStudyAccess, (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: '접근 가능합니다.',
+  });
+});
+
 // 인증 관련
 accessRouter.post('/', async (req, res, next) => {
   // req.body 로 올 수 있는게 음 새 패스워드 ->
