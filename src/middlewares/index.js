@@ -5,3 +5,4 @@ export * from './validate-habit.middleware.js';
 export * from './validate-study.middleware.js';
 export * from './vaildate-habitRecord.middleware.js';
 export * from './validateStudyQuery.middleware.js';
+export * from './validate-emoji.middleware.js';
