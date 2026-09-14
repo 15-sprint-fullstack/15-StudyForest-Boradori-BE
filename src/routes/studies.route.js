@@ -2,6 +2,7 @@ import express from 'express';
 import { validateStudy, validateStudyQuery } from '#middlewares';
 import { studiesRepository } from '#repositories';
 import { createStudySchema, updateStudySchema } from '#schemas';
+import { accessRouter } from './access.route.js';
 import { emojisRouter } from './emojis.route.js';
 import { habitRecordsRouter } from './habitRecords.route.js';
 import { habitsRouter } from './habits.route.js';
@@ -93,3 +94,4 @@ studiesRouter.use(
   habitRecordsRouter,
 );
 studiesRouter.use(['/:studyId/emojis'], emojisRouter);
+studiesRouter.use(['/:studyId/access'], accessRouter);
