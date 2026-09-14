@@ -9,8 +9,8 @@ export async function emojiTranscation(work) {
         isolationLevel: 'Serializable',
       });
     } catch (error) {
-      const isRetryable = error.code === 'P2023' || error.code === 'P2002';
-      if (!isRetryable || attempt >= maxAttempts) {
+      const isRetryable = error.code === 'P2034' || error.code === 'P2002';
+      if (!isRetryable || attempt === maxAttempts - 1) {
         throw error;
       }
     }

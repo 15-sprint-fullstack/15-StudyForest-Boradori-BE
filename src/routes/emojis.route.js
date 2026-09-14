@@ -1,7 +1,7 @@
 import express from 'express';
-import { emojisRepository } from '../repositories/emojis.repository.js';
-import { createEmojiSchema } from '#schemas';
 import { validateEmoji, validateStudy } from '#middlewares';
+import { createEmojiSchema } from '#schemas';
+import { emojisRepository } from '../repositories/emojis.repository.js';
 
 export const emojisRouter = express.Router({ mergeParams: true });
 
@@ -12,7 +12,7 @@ emojisRouter.get('/', validateStudy, async (req, res, next) => {
   try {
     const emoji = await emojisRepository.findByStudyId(studyId);
     res.status(200).json({
-      successs: true,
+      success: true,
       data: emoji,
       message: '이모지를 찾았습니다.',
     });
@@ -56,7 +56,7 @@ emojisRouter.delete(
       res.status(200).json({
         success: true,
         data: deleteEmoji,
-        message: '스터디 삭제 / 카운트 감소 완료',
+        message: '이모지 삭제 / 카운트 감소 완료',
       });
     } catch (error) {
       next(error);

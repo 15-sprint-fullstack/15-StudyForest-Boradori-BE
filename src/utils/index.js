@@ -1,1 +1,1 @@
-export * from './emojiTransaction.utils.js';
+export * from './emoji-transaction.util.js';
