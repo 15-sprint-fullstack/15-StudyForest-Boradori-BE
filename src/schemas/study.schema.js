@@ -12,4 +12,6 @@ export const createStudySchema = z
   .strict();
 
 // 수정할 때는 선택적으로 적용
-export const updateStudySchema = createStudySchema.partial();
+export const updateStudySchema = createStudySchema.partial().extend({
+  point: z.number().int().nonnegative(),
+});

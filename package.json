@@ -44,6 +44,7 @@
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "bcrypt": "^6.0.0",
+    "connect-pg-simple": "^10.0.0",
     "date-fns": "^4.4.0",
     "date-fns-tz": "^3.2.0",
     "emoji-regex": "^10.6.0",
