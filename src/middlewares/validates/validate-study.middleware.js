@@ -1,6 +1,6 @@
 import { prisma } from '#db/prisma.js';
-import { BadRequestException } from '../exceptions/bad-request-exception.js';
-import { NotFoundException } from '../exceptions/not-found-exception.js';
+import { BadRequestException } from '../../exceptions/bad-request-exception.js';
+import { NotFoundException } from '../../exceptions/not-found-exception.js';
 
 export const validateStudy = async (req, _res, next) => {
   try {

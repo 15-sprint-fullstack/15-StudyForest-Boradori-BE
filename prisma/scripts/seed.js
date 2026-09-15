@@ -1,16 +1,17 @@
 import { faker } from '@faker-js/faker';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { assertSafeSeedTarget, resetMarketData } from './seed-safety.js';
 import { PrismaClient } from '#generated/prisma/client.js';
+import { hashPassword } from '#utils';
+import { assertSafeSeedTarget, resetMarketData } from './seed-safety.js';
 
 const NUM_STUDY_TO_CREATE = 30;
-
+const password = await hashPassword('1q2w3e4r!');
 const makeStudyInput = () => ({
   nickname: faker.lorem.sentence({ min: 3, max: 8 }),
   name: faker.lorem.sentence({ min: 3, max: 8 }),
   description: faker.lorem.paragraphs({ min: 2, max: 5 }, '\n\n'),
-  background: faker.color.human(),
-  password: '1q2w3e4r!',
+  background: String(faker.number.int({ min: 1, max: 8 })),
+  password,
   point: faker.number.int({ min: 0, max: 50 }),
 });
 

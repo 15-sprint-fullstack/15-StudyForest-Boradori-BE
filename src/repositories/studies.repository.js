@@ -15,16 +15,21 @@ function findAll(page, limit, sort, sortBy, keyword) {
       : {},
     skip: (page - 1) * limit,
     take: limit,
-    orderBy: [
-      { [validSortBy]: validSort },
-      { id: 'asc' },
-    ],
+    orderBy: [{ [validSortBy]: validSort }, { id: 'asc' }],
   });
 }
 
 function findById(studyId) {
   return prisma.study.findUnique({
     where: { id: studyId },
+  });
+}
+
+// 인증용 구간 추가 - password omit 설정 false 를 위해 존재
+function findByIdForAccess(studyId) {
+  return prisma.study.findUnique({
+    where: { id: studyId },
+    omit: { password: false },
   });
 }
 
@@ -64,6 +69,7 @@ function remove(studyId) {
 export const studiesRepository = {
   findAll,
   findById,
+  findByIdForAccess,
   count,
   create,
   update,

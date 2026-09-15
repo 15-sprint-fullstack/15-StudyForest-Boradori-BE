@@ -2,7 +2,7 @@ import { isDevelopment } from '#config';
 
 // 프엔에서 사용될 url 들 집어넣으면 됩니다.
 // render의 환경변수를 받아오기 위해 코드 추가
-const developmentWhitelist = ['http://localhost:5001'];
+const developmentWhitelist = ['http://localhost:5001', 'http://localhost:5173'];
 const productionWhitelist = (process.env.ALLOWED_ORIGINS || '')
   .split(',')
   .map((origin) => origin.trim());

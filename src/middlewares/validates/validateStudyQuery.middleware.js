@@ -1,4 +1,4 @@
-import { BadRequestException } from '../exceptions/bad-request-exception.js';
+import { BadRequestException } from '../../exceptions/bad-request-exception.js';
 
 export const validateStudyQuery = (req, res, next) => {
   try {
