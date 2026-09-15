@@ -68,7 +68,9 @@ studiesRouter.patch(
     try {
       const studyId = req.params.studyId;
       const data = updateStudySchema.parse(req.body);
-      data.password = await hashPassword(data.password);
+      if (data.password !== undefined) {
+        data.password = await hashPassword(data.password);
+      }
       const updatedStudy = await studiesRepository.update(studyId, data);
       res.status(200).json({
         success: true,
