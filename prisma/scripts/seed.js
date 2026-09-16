@@ -2,22 +2,25 @@ import { faker } from '@faker-js/faker';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '#generated/prisma/client.js';
 import { hashPassword } from '#utils';
+import { getRandomCombination, getRandomHabits } from './getRandomCombination.js';
 import { assertSafeSeedTarget, resetMarketData } from './seed-safety.js';
 
 const NUM_STUDY_TO_CREATE = 30;
 const password = await hashPassword('1q2w3e4r!');
-const makeStudyInput = () => ({
-  nickname: faker.lorem.sentence({ min: 3, max: 8 }),
-  name: faker.lorem.sentence({ min: 3, max: 8 }),
-  description: faker.lorem.paragraphs({ min: 2, max: 5 }, '\n\n'),
+const makeStudyInput = () => {
+  const { randomNickname, randomName, randomDescription } = getRandomCombination();
+  return {
+  nickname: randomNickname,
+  name: randomName,
+  description: randomDescription,
   background: String(faker.number.int({ min: 1, max: 8 })),
   password,
   point: faker.number.int({ min: 0, max: 50 }),
-});
+}};
 
-const makeHabitInput = (studyId) => ({
-  name: faker.lorem.sentence({ min: 2, max: 3 }),
-  studyId,
+const makeHabitInput = (studyId, name) => ({
+  name,
+  studyId
 });
 
 function getDateRange(start, end) {
@@ -31,7 +34,7 @@ function getDateRange(start, end) {
   return dates;
 }
 
-const dateRange = getDateRange('2026-08-30', '2026-09-06');
+const dateRange = getDateRange('2026-09-07', '2026-09-16');
 
 const makeHabitRecordInput = (habitName, studyId, habitId, createdAt) => ({
   habitName,
@@ -59,9 +62,9 @@ async function seed(prisma) {
 
   const habitData = [];
   for (const study of studys) {
-    const count = faker.number.int({ min: 1, max: 6 });
-    for (let index = 0; index < count; index += 1) {
-      habitData.push(makeHabitInput(study.id));
+    const randomHabits = getRandomHabits();
+    for (const name of randomHabits) {
+      habitData.push(makeHabitInput(study.id, name));
     }
   }
 
@@ -83,7 +86,7 @@ async function seed(prisma) {
 
   const habitRecordData = [];
   for (const habit of habits) {
-    const count = faker.number.int({ min: 0, max: 7 });
+    const count = faker.number.int({ min: 0, max: 10 });
     const shuffledDates = faker.helpers.shuffle([...dateRange]);
     const selectedDates = shuffledDates.slice(0, count);
 
