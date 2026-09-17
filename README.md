@@ -191,11 +191,8 @@ src
 
 ---
 
-## **구현 홈페이지**
-
-(개발한 홈페이지에 대한 링크 게시)
-
-https://www.codeit.kr/
+## API 문서 (swagger)
+https://one5-studyforest-boradori-be-c021.onrender.com/api-docs/
 
 ---
 
