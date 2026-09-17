@@ -40,7 +40,7 @@ const options = {
               type: 'string',
               example: '하루 30분 운동 습관 만들기',
             },
-            background: { type: 'string', nullable: true, example: null },
+            background: { type: 'integer', nullable: true, example: 1 },
             point: { type: 'integer', example: 0 },
             createdAt: { type: 'string', format: 'date-time' },
             updatedAt: { type: 'string', format: 'date-time' },
@@ -104,6 +104,35 @@ const options = {
             },
           },
           required: ['id', 'createdAt', 'habitName', 'studyId'],
+        },
+        Emoji: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              format: 'uuid',
+              example: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+            },
+            emojiType: {
+              type: 'string',
+              description: '이모지 하나',
+              example: '😀',
+            },
+            count: {
+              type: 'integer',
+              minimum: 0,
+              maximum: 99,
+              example: 1,
+            },
+            createdAt: { type: 'string', format: 'date-time' },
+
+            studyId: {
+              type: 'string',
+              format: 'uuid',
+              example: '1a561aee-9c6e-46df-80e1-7c39be75de08',
+            },
+          },
+          required: ['id', 'emojiType', 'count', 'createdAt', 'studyId'],
         },
       },
     },
