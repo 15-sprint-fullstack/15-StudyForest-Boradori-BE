@@ -4,15 +4,13 @@
 
 ## **팀원 구성**
 
-권다운 ([개인 Github 링크](https://github.com/T-Lime))
+권다운 [깃허브 링크](https://github.com/T-Lime)
 
-김숙연 ([개인 Github 링크](https://github.com/sswapbot/15-StudyForest-Boradori-BE))
+김숙연 [깃허브 링크](https://github.com/sswapbot)
 
-이승현 (https://github.com/MonsteraforCoding)
+이승현 [깃허브 링크](https://github.com/MonsteraforCoding)
 
-이지우 (개인 Github 링크)
-
-정호영 (개인 Github 링크)
+이지우 [깃허브 링크](https://github.com/Rasol07)
 
 ---
 
@@ -162,17 +160,7 @@ https://velog.io/@chhw130/%EB%A1%9C%EA%B7%B8%EC%9D%B8%EB%B0%A9%EC%8B%9D%EC%97%90
 
 - study validate 작성
 
-### 정호영
 
-(자신이 개발한 기능에 대한 사진이나 gif 파일 첨부)
-
-- **관리자 페이지**
-    - fetch(GET)를 사용하여 학생별 시간 정보 표시 및 수강생 접속 현황 정보 표시
-    - 반응형 레이아웃 구현
-- **마이 페이지**
-    - fetch(PATCH, DELETE)를 사용하여 수강생의 개인정보 수정 및 탈퇴 기능 구현
-- **공용 Modal 컴포넌트**
-    - 공용으로 사용할 Modal 컴포넌트 구현
 
 ---
 
@@ -281,5 +269,5 @@ https://one5-studyforest-boradori-be-c021.onrender.com/api-docs/
 ---
 
 ## **프로젝트 회고록**
-
+https://drive.google.com/drive/folders/1KJ0-EYRH919ieF_Bk2vws1xED49ec9G4
 (제작한 발표자료 링크 혹은 첨부파일 첨부)
