@@ -25,8 +25,8 @@
 
 - Frontend: JavaScript, React.js ...
 - Backend: Express.js, PrismaORM ...
-- Database: postgreSQL
-- 공통 Tool: Git & Github, Discord, zep, ...
+- Database: PostgreSQL
+- 배포, 협업: Git & Github, Discord, zep, Notion, Swagger, Render, Netlify
 
 ---
 
